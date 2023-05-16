@@ -1,18 +1,46 @@
+html {
+	font-size: 62.5%;
+	/* 16px × 62.5% = 10px*/
+}
+
+
 body{
     margin:0;
     padding:0;
     text-align:left;
-    font-size: 32px;
+    font-family: Roboto, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
+	line-height: 1.75;
+	font-size: 1.6rem;
 }
+
 header{
     background-color: #fff;
     border-bottom: 1px solid #ccc;
     text-align: center;
 }
+
 main{
     border-bottom:1px solid #ccc;
     position:relative;
 }
+
+/* -------------------------------
+登録フォーム
+-------------------------------- */
+
+.registration{
+    display: flex;
+}
+
+.registration_form{
+    width: 70%;
+}
+
+.registration_list{
+    width: 30%;
+    margin: 0 0 0 30px;
+}
+
 footer{
     background-color: #fff;
     border-bottom:1px solid #ccc;
@@ -26,17 +54,16 @@ p{
 }
 ul{
     padding: 0;
-    border-top: 1px solid #000000;
-    display:table;  /* 定義 */
+    /* border-top: 1px solid #000000; */
     table-layout: fixed;
     width:100%;
 }
-li{
+.li{
     text-align: center;
     list-style-type:none;
     border: 1px solid #666;
     background-color: #FFF;
-    display:table-cell;  /* 定義 */
+    display:table-cell; 
     cursor: pointer;
 }
 li:hover{
@@ -45,24 +72,50 @@ li:hover{
 }
 input,textarea{
     margin: 3%;
-    width: 95%;
+    width: 70%;
     font-size:80%;
-    box-shadow: 3px 3px 3px 3px #555;
 }
+
 input{
     height: 30px;
 }
+
 textarea{
-    height: 230px;
+    height: 10vh;
 }
 
 div{
-  height: 200px;
+  height: auto;
   overflow-y: scroll;
   border: 1px solid #666;
   margin: 10px;
 }
+
 div p{
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   height: auto;
+}
+
+/* -------------------------------
+選択フォーム
+-------------------------------- */
+
+h2{
+    text-align: center;
+    font-size: 2.8rem;
+}
+
+.selectarea{
+    display: flex;
+}
+
+.selectarea_left{
+  width: 70%;
+
+}
+
+
+.selectarea_right{
+  width: 30%;
+
 }
