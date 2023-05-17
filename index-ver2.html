@@ -197,10 +197,12 @@
             for (const kind in dataByKind) {
                 const dataList = dataByKind[kind];
                 const select = document.querySelector(`select[data-kind="${kind}"]`);
-                const gramSelect = document.querySelector(`#${kind} .gram-select`);
                 if (select) {
                     select.innerHTML = createSelectOptions(dataList);
-                    updateGramSelect(dataList, gramSelect);
+                    const gramSelect = document.querySelector(`#${kind} .gram-select`);
+                    if (gramSelect) {
+                        updateGramSelect(dataList, gramSelect);
+                    }
                 }
             }
 
@@ -346,45 +348,48 @@
 
         function sidebar() {
             // ローカルストレージから全データを取得
-            const allData = JSON.parse(localStorage.getItem('gearData')) || {};
+            const allData = JSON.parse(localStorage.getItem('gearData'));
 
-            // kindごとにデータを分類するオブジェクトを作成
-            const dataByKind = {};
-            for (const data of allData) {
-                const kind = data.kind;
-                // dataByKindオブジェクトがなければ、新しく作成する
-                if (!dataByKind.hasOwnProperty(kind)) {
-                    dataByKind[kind] = [];
+            if (allData) {
+                // kindごとにデータを分類するオブジェクトを作成
+                const dataByKind = {};
+                for (const data of allData) {
+                    const kind = data.kind;
+                    // dataByKindオブジェクトがなければ、新しく作成する
+                    if (!dataByKind.hasOwnProperty(kind)) {
+                        dataByKind[kind] = [];
+                    }
+                    dataByKind[kind].push(data);
                 }
-                dataByKind[kind].push(data);
-            }
 
-            // 分類したデータをリストに表示する
-            for (const kind in dataByKind) {
-                const dataList = dataByKind[kind];
-                const div = document.querySelector(`#${kind}`);
-                if (div) {
-                    div.innerHTML = ""; // 既存の要素をクリア
-                    dataList.forEach((data) => {
-                        const name = data.name;
-                        const gram = data.gram;
-                        const str = `${name} ${gram}`;
+                // 分類したデータをリストに表示する
+                for (const kind in dataByKind) {
+                    const dataList = dataByKind[kind];
+                    const div = document.querySelector(`#${kind}`);
+                    if (div) {
+                        div.innerHTML = ""; // 既存の要素をクリア
+                        dataList.forEach((data) => {
+                            const name = data.name;
+                            const gram = data.gram;
+                            const str = `${name} ${gram}`;
 
-                        const p = document.createElement('p');
-                        p.textContent = str;
+                            const p = document.createElement('p');
+                            p.textContent = str;
 
-                        const deleteBtn = document.createElement('button');
-                        deleteBtn.textContent = '削除';
-                        deleteBtn.classList.add('delete_btn');
-                        deleteBtn.dataset.id = data.id; // 削除ボタンにデータのIDを設定
+                            const deleteBtn = document.createElement('button');
+                            deleteBtn.textContent = '削除';
+                            deleteBtn.classList.add('delete_btn');
+                            deleteBtn.dataset.id = data.id; // 削除ボタンにデータのIDを設定
 
-                        p.appendChild(deleteBtn); // <p>要素に削除ボタンを追加
+                            p.appendChild(deleteBtn); // <p>要素に削除ボタンを追加
 
-                        div.appendChild(p);
-                    });
+                            div.appendChild(p);
+                        });
+                    }
                 }
             }
         }
+
 
         // 登録したものが右のサイドバーに表示される
         sidebar();
@@ -415,7 +420,7 @@
             // 削除されたデータに対応する<p>要素を削除する
             const pElements = document.querySelectorAll(`.delete_btn[data-id="${id}"]`);
             pElements.forEach(p => {
-                const li = p.closest('li');
+                const li = p.closest('p').parentNode;
                 li.remove();
             });
 
