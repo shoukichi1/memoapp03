@@ -15,13 +15,13 @@
     <header>
         <h1>pack to go</h1>
     </header>
-
     <main>
-        <!-- 登録フォーム -->
-        <section class="registration_form">
 
-            <form action="">
-                <div>
+        <!-- 登録フォーム -->
+        <section class="registration">
+            <div class="registration_form">
+                <form action="">
+                    <!-- <div>
                     <p>ギアの写真を選択</p>
                     <input type="file" onchange="previewFile(this);">
                     <p>
@@ -30,133 +30,320 @@
                             src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                             style="max-width:200px;">
                     </p>
-                </div>
-                <div>
-                    <p>ギアの名称</p>
-                    <input type="text" id="gear_name">
-                </div>
-                <div>
-                    <p>ギアの重さ</p>
-                    <input type="text" id="gram">
-                </div>
-                <div>
-                    <p>ギアの種類</p>
-                    <select name="" id="gear_kind">
-                        <option value="head gear">head gear</option>
-                        <option value="base layer">base layer</option>
-                        <option value="">middle layer</option>
-                        <option value="middle layer">outer</option>
-                        <option value="bottoms">bottoms</option>
-                        <option value="shoes">shoes</option>
-                        <option value="bagpack">bagpack</option>
-                        <option value="other">other</option>
-
-                    </select>
-                </div>
-                <div>
-                    <p>ギアの説明</p>
-                    <textarea id="text_area"></textarea>
-                </div>
-                <div>
-                    <input type="button" value="登録する" id="registration_btn">
-                    <input type="button" value="クリア" id="clear_btn">
-                </div>
-
-            </form>
-            <!-- <div>
-                <ul class=" registration_btn">
-                    <li id="save">Save</li>
-                    <li id="clear">Clear</li>
-
-                    </ul>
                 </div> -->
-        </section>
+                    <div>
+                        <p>ギアの名称</p>
+                        <input type="text" id="gear_name">
+                    </div>
+                    <div>
+                        <p>ギアの重さ</p>
+                        <input type="text" id="gram">
+                    </div>
+                    <div>
+                        <p>ギアの種類</p>
+                        <select name="" id="gear_kind">
+                            <option value="head_gear">head gear</option>
+                            <option value="base_layer">base layer</option>
+                            <option value="middle_layer">middle layer</option>
+                            <option value="outer">outer</option>
+                            <option value="bottoms">bottoms</option>
+                            <option value="shoes">shoes</option>
+                            <option value="bagpack">bagpack</option>
+                            <option value="other">other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <p>ギアの説明</p>
+                        <textarea id="text_area"></textarea>
+                    </div>
+                    <div>
+                        <input type="button" value="登録する" id="registration_btn">
+                        <input type="button" value="クリア" id="clear_btn">
+                    </div>
+                </form>
+            </div>
 
-        <!-- 登録されたデータのリスト -->
-        <section class="registration_list">
-            <div>
+
+            <!-- 登録されたデータのリスト -->
+
+
+            <div class="registration_list">
                 <ul>
                     <li>head gear
                         <div id="head_gear">
                             <p></p>
                         </div>
                     </li>
-
                     <li>base layer
                         <div id="base_layer">
                             <p></p>
                         </div>
                     </li>
-
                     <li>middle layer
-
                         <div id="middle_layer">
                             <p></p>
                         </div>
                     </li>
-
                     <li>outer
                         <div id="outer">
                             <p></p>
                         </div>
-
                     </li>
-
                     <li>bottoms
                         <div id="bottoms">
                             <p></p>
                         </div>
-
                     </li>
                     <li>shoes
                         <div id="shoes">
                             <p></p>
                         </div>
-
                     </li>
                     <li>bagpack
                         <div id="bagpack">
                             <p></p>
                         </div>
-
                     </li>
                 </ul>
+            </div>
+        </section>
+
+        <h2>equipment</h2>
+
+        <section class="selectarea">
+            <div class="selectarea_left">
+                <div>
+                    <p>head gear</p>
+                    <select name="" id="gear_kind" data-kind="head_gear"></select>
+                    <span class="gram-select" data-kind="head_gear"></span>
+                    <p>g</p>
+                </div>
+                <div>
+                    <p>base layer</p>
+                    <select name="" id="gear_kind" data-kind="base_layer"></select>
+                    <span class="gram-select" data-kind="base_layer"></span>
+                    <p>g</p>
+                </div>
+                <div>
+                    <p>middle layer</p>
+                    <select name="" id="gear_kind" data-kind="middle_layer"></select>
+                    <span class="gram-select" data-kind="middle_layer"></span>
+                    <p>g</p>
+                </div>
+                <div>
+                    <p>outer</p>
+
+                    <select name="" id="gear_kind" data-kind="outer"></select>
+                    <span class="gram-select" data-kind="outer"></span>
+                    <p>g</p>
+                </div>
+                <div>
+                    <p>bottoms</p>
+
+                    <select name="" id="gear_kind" data-kind="bottoms"></select>
+                    <span class="gram-select" data-kind="bottoms"></span>
+                    <p>g</p>
+                </div>
+                <div>
+                    <p>shoes</p>
+
+                    <select name="" id="gear_kind" data-kind="shoes"></select>
+                    <span class="gram-select" data-kind="shoes"></span>
+                    <p>g</p>
+                </div>
+                <div>
+                    <p>bagpack</p>
+                    <select name="" id="gear_kind" data-kind="bagpack"></select>
+                    <span class="gram-select" data-kind="bagpack"></span>
+                    <p>g</p>
+                </div>
+                <div>
+                    <p>other</p>
+                    <select name="" id="gear_kind" data-kind="other"></select>
+                    <span class="gram-select" data-kind="other"></span>
+                    <p>g</p>
+                </div>
+
+                <div id="total_gram"></div>
+
+                <div id="gram-select_total"></div>
+            </div>
+
+            <div class="selectarea_right">
+                <p>Loadout</p>
+
+
+
             </div>
 
 
 
+
+
         </section>
-
-        <section>
-
-
-
-
-
-
-
-            
-        </section>
-
-
-
-
-
-
     </main>
 
-    <footer>
-
-        <small>yamanekohike</small>
-    </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-
         // オブジェクトのid用のカウンター
         let count = 0;
 
+        // kindごとにセレクトボックスを更新する関数
+        function updateSelectArea() {
+            const data = localStorage.getItem('gearData');
+            const allData = data ? JSON.parse(data) : [];
+            // const allData = JSON.parse(localStorage.getItem('gearData')) || {};
+
+            // kindごとにデータを分類するオブジェクトを作成
+            const dataByKind = {};
+            for (const data of allData) {
+                const kind = data.kind;
+                if (!dataByKind[kind]) {
+                    dataByKind[kind] = [];
+                }
+                dataByKind[kind].push(data);
+            }
+
+            // セレクトボックスの選択肢を更新
+            for (const kind in dataByKind) {
+                const dataList = dataByKind[kind];
+                const select = document.querySelector(`select[data-kind="${kind}"]`);
+                if (select) {
+                    select.innerHTML = createSelectOptions(dataList);
+                    const gramSelect = document.querySelector(`#${kind} .gram-select`);
+                    if (gramSelect) {
+                        updateGramSelect(dataList, gramSelect);
+                    }
+                }
+            }
+
+            // 合計値を更新
+            updateTotalGram(dataByKind);
+        }
+
+        // 選択肢を生成するヘルパー関数
+        function createSelectOptions(dataList) {
+            let options = '';
+            dataList.forEach(data => {
+                const option = `<option value="${data.gram}">${data.name} (${data.gram}g)</option>`;
+                options += option;
+            });
+            return options;
+        }
+
+        // gramセレクトボックスを更新する関数
+        function updateGramSelect(dataList, gramSelect) {
+            gramSelect.innerHTML = '';
+            dataList.forEach(data => {
+                const option = `<option value="${data.gram}">${data.gram}</option>`;
+                gramSelect.innerHTML += option;
+            });
+        }
+
+
+        // 合計値を更新する関数
+        function updateTotalGram(dataByKind) {
+            // トータルグラムの変数を作成
+            let totalGram = 0;
+
+            for (const kind in dataByKind) {
+                const dataList = dataByKind[kind];
+                dataList.forEach(data => {
+
+                    if (data.gram) {
+                        totalGram += parseInt(data.gram, 10);
+                    }
+                });
+            }
+            const totalGramElement = $('#total_gram');
+            if (totalGramElement.length) {
+                totalGramElement.text(`合計: ${totalGram} g`);
+            }
+        }
+
+        // // セレクトボックスの変更イベントを処理
+        // function handleSelectChange() {
+        //     const kindSelects = document.querySelectorAll('select[data-kind]');
+        //     kindSelects.forEach(select => {
+        //         const selectedOption = select.querySelector('option:checked');
+        //         const selectedGram = selectedOption.value || '';
+        //         const gramDisplay = select.nextElementSibling;
+        //         if (gramDisplay) {
+        //             gramDisplay.textContent = selectedGram ? `${selectedGram}g` : '';
+        //         }
+        //     });
+
+        //     // .gram-selectの合計値を更新
+        //     updateTotalGramSelect();
+        // }
+
+        // セレクトボックスの変更イベントを処理
+        function handleSelectChange() {
+            const kindSelects = document.querySelectorAll('select[data-kind]');
+            kindSelects.forEach(select => {
+                const selectedOption = select.querySelector('option:checked');
+                const selectedGram = selectedOption ? selectedOption.value : '';
+                const gramDisplay = select.nextElementSibling;
+                if (gramDisplay) {
+                    gramDisplay.textContent = selectedGram ? `${selectedGram}g` : '';
+                }
+            });
+
+            // .gram-selectの合計値を更新
+            updateTotalGramSelect();
+        }
+
+        // .gram-selectの合計値を更新する関数
+        function updateTotalGramSelect() {
+            const gramSelects = document.querySelectorAll('.gram-select');
+            let totalGram = 0;
+            gramSelects.forEach(gramSelect => {
+                const selectedGram = gramSelect.textContent.trim();
+                if (selectedGram) {
+                    totalGram += parseInt(selectedGram, 10);
+                }
+            });
+            const totalGramElement = document.querySelector('#gram-select_total');
+            if (totalGramElement) {
+                totalGramElement.textContent = `合計: ${totalGram} g`;
+            }
+        }
+
+        // セレクトボックスの変更イベントを監視
+        const kindSelects = document.querySelectorAll('select[data-kind]');
+        kindSelects.forEach(select => {
+            select.addEventListener('change', handleSelectChange);
+        });
+
+        // 初期表示時に合計値を更新
+        updateTotalGramSelect();
+
+        // ページ読み込み時にセレクトボックスを初期化
+        window.addEventListener('DOMContentLoaded', updateSelectArea);
+
+
+        // // セレクトボックスの変更イベントを処理
+        // function handleSelectChange() {
+        //     const kindSelects = document.querySelectorAll('select[data-kind]');
+        //     kindSelects.forEach(select => {
+        //         const selectedOption = select.querySelector('option:checked');
+        //         const selectedGram = selectedOption.value || '';
+        //         const gramDisplay = select.nextElementSibling;
+        //         if (gramDisplay) {
+        //             gramDisplay.textContent = selectedGram ? `${selectedGram}g` : '';
+        //         }
+        //     });
+        // }
+
+
+        // // セレクトボックスの変更イベントを監視
+        // const kindSelects = document.querySelectorAll('select[data-kind]');
+        // kindSelects.forEach(select => {
+        //     select.addEventListener('change', handleSelectChange);
+        // });
+
         // 登録ボタンを押したら発火
-        $("#registration_btn").on("click", function () {
+        $(document).on("click", "#registration_btn", function () {
             const gear_name = $("#gear_name").val();
             const gear_gram = $("#gram").val();
             const gear_kind = $("#gear_kind").val();
@@ -186,10 +373,12 @@
             localStorage.setItem("gearData", JSON.stringify(savedData));
 
             sidebar();
+            updateSelectArea();
+            handleSelectChange();
         });
 
         // クリアボタンを押したら入力エリアの内容を削除する
-        $("#clear_btn").on("click", function () {
+        $(document).on("click", "#clear_btn", function () {
             $("#gear_name").val("");
             $("#gram").val("");
             $("#gear_kind").val("");
@@ -197,65 +386,93 @@
         });
 
         // 登録したものが右のサイドバーに表示される
+
+
         function sidebar() {
             // ローカルストレージから全データを取得
-            const allData = JSON.parse(localStorage.getItem('gearData')) || [];
+            const allData = JSON.parse(localStorage.getItem('gearData'));
 
-            // kindごとにデータを分類するオブジェクトを作成
-            const dataByKind = {};
-            allData.forEach((data) => {
-                const kind = data.kind;
-                // !は論理演算子の一つで、否定（not）を表す
-                // dataByKindオブジェクトがなければ、新しく作成する
-                if (!dataByKind.hasOwnProperty(kind)) {
-                    dataByKind[kind] = [];
+            if (allData) {
+                // kindごとにデータを分類するオブジェクトを作成
+                const dataByKind = {};
+                for (const data of allData) {
+                    const kind = data.kind;
+                    // dataByKindオブジェクトがなければ、新しく作成する
+                    if (!dataByKind.hasOwnProperty(kind)) {
+                        dataByKind[kind] = [];
+                    }
+                    dataByKind[kind].push(data);
                 }
-                dataByKind[kind].push(data);
-            });
 
-            // 分類したデータをリストに表示する
-            for (const kind in dataByKind) {
-                const dataList = dataByKind[kind];
-                const div = document.querySelector(`#${kind} p`);
-                if (div) {
-                    dataList.forEach((data) => {
-                        const name = data.name;
-                        console.log(name);
-                        const gram = data.gram;
-                        const str = `${name} ${gram}`;
-                        const p = document.createElement('p');
-                        p.textContent = str;
-                        div.appendChild(p);
-                    });
+                // 分類したデータをリストに表示する
+                for (const kind in dataByKind) {
+                    const dataList = dataByKind[kind];
+                    const div = document.querySelector(`#${kind}`);
+                    if (div) {
+                        div.innerHTML = ""; // 既存の要素をクリア
+                        dataList.forEach((data) => {
+                            const name = data.name;
+                            const gram = data.gram;
+                            const str = `${name} ${gram}`;
+
+                            const p = document.createElement('p');
+                            p.textContent = str;
+
+                            const deleteBtn = document.createElement('button');
+                            deleteBtn.textContent = '削除';
+                            deleteBtn.classList.add('delete_btn');
+                            deleteBtn.dataset.id = data.id; // 削除ボタンにデータのIDを設定
+
+                            p.appendChild(deleteBtn); // <p>要素に削除ボタンを追加
+
+                            div.appendChild(p);
+                        });
+                    }
                 }
             }
         }
 
 
 
+        // 登録したものが右のサイドバーに表示される
+        sidebar();
 
+        // 削除ボタンがクリックされた時の処理
+        $(document).on("click", ".delete_btn", function () {
+            const id = $(this).data("id");
+            deleteData(id);
+        });
 
+        // データを削除する関数
+        function deleteData(id) {
+            // ローカルストレージから保存済みのデータを取得
+            let savedData = JSON.parse(localStorage.getItem("gearData")) || [];
 
+            // データを探して削除
+            const index = savedData.findIndex(data => data.id === id);
+            if (index !== -1) {
+                savedData.splice(index, 1);
+            }
 
+            // ローカルストレージに保存する
+            localStorage.setItem("gearData", JSON.stringify(savedData));
 
+            // サイドバーを更新
+            sidebar();
 
+            // 削除されたデータに対応する<p>要素を削除する
+            const pElements = document.querySelectorAll(`.delete_btn[data-id="${id}"]`);
+            pElements.forEach(p => {
+                const li = p.closest('p').parentNode;
+                li.remove();
+            });
 
-        // プレビュー表示
-        // $(document).ready(function () {
-        //     $('#fileInput').change(function () {
-        //         let file = this.files[0];
-        //         let reader = new FileReader();
-        //         reader.onload = function (e) {
-        //             $('#preview').attr('src', e.target.result);
-        //         }
-        //         reader.readAsDataURL(file);
-        //     });
-        // });
-
-
-
-
+            // カウンターの値を更新
+            count = savedData.length;
+        }
     </script>
+
+
 
 </body>
 
