@@ -114,36 +114,50 @@
             <div class="selectarea_left">
                 <div>
                     <p>head gear</p>
-                    <select name="" data-kind="head_gear"></select>
+                    <select name="" id="gear_kind" data-kind="head_gear"></select>
+                    <span class="gram-select" data-kind="head_gear"></span>
                 </div>
                 <div>
                     <p>base layer</p>
-                    <select name="" data-kind="base_layer"></select>
+                    <select name="" id="gear_kind" data-kind="base_layer"></select>
+                    <span class="gram-select" data-kind="base_layer"></span>
                 </div>
                 <div>
                     <p>middle layer</p>
-                    <select name="" data-kind="middle_layer"></select>
+
+                    <select name="" id="gear_kind" data-kind="middle_layer"></select>
+                    <span class="gram-select" data-kind="middle_layer"></span>
                 </div>
                 <div>
                     <p>outer</p>
-                    <select name="" data-kind="outer"></select>
+
+                    <select name="" id="gear_kind" data-kind="outer"></select>
+                    <span class="gram-select" data-kind="outer"></span>
                 </div>
                 <div>
                     <p>bottoms</p>
-                    <select name="" data-kind="bottoms"></select>
+
+                    <select name="" id="gear_kind" data-kind="bottoms"></select>
+                    <span class="gram-select" data-kind="bottoms"></span>
                 </div>
                 <div>
                     <p>shoes</p>
-                    <select name="" data-kind="shoes"></select>
+
+                    <select name="" id="gear_kind" data-kind="shoes"></select>
+                    <span class="gram-select" data-kind="shoes"></span>
                 </div>
                 <div>
                     <p>bagpack</p>
-                    <select name="" data-kind="bagpack"></select>
+                    <select name="" id="gear_kind" data-kind="bagpack"></select>
+                    <span class="gram-select" data-kind="bagpack"></span>
                 </div>
                 <div>
                     <p>other</p>
-                    <select name="" data-kind="other"></select>
+                    <select name="" id="gear_kind" data-kind="other"></select>
+                    <span class="gram-select" data-kind="other"></span>
                 </div>
+
+                <div id="total_gram"></div>
             </div>
 
             <div class="selectarea_right">
@@ -167,27 +181,123 @@
 
         // kindごとにセレクトボックスを更新する関数
         function updateSelectArea() {
-            const allData = JSON.parse(localStorage.getItem('gearData')) || [];
+            const allData = JSON.parse(localStorage.getItem('gearData')) || {};
 
             // kindごとにデータを分類するオブジェクトを作成
             const dataByKind = {};
-            allData.forEach(data => {
+            for (const data of allData) {
                 const kind = data.kind;
                 if (!dataByKind[kind]) {
                     dataByKind[kind] = [];
                 }
                 dataByKind[kind].push(data);
-            });
+            }
 
             // セレクトボックスの選択肢を更新
             for (const kind in dataByKind) {
                 const dataList = dataByKind[kind];
                 const select = document.querySelector(`select[data-kind="${kind}"]`);
+                const gramSelect = document.querySelector(`#${kind} .gram-select`);
                 if (select) {
                     select.innerHTML = createSelectOptions(dataList);
+                    updateGramSelect(dataList, gramSelect);
                 }
             }
+
+            // 合計値を更新
+            updateTotalGram(dataByKind);
         }
+
+        // 選択肢を生成するヘルパー関数
+        function createSelectOptions(dataList) {
+            let options = '';
+            dataList.forEach(data => {
+                const option = `<option value="${data.id}">${data.name}</option>`;
+                options += option;
+            });
+            return options;
+        }
+
+        // gramセレクトボックスを更新する関数
+        function updateGramSelect(dataList, gramSelect) {
+            gramSelect.innerHTML = '';
+            dataList.forEach(data => {
+                const option = `<option value="${data.gram}">${data.gram}</option>`;
+                gramSelect.innerHTML += option;
+            });
+        }
+
+
+        // 合計値を更新する関数
+        function updateTotalGram(dataByKind) {
+            let totalGram = 0;
+            for (const kind in dataByKind) {
+                const dataList = dataByKind[kind];
+                dataList.forEach(data => {
+                    if (data.gram) {
+                        totalGram += parseInt(data.gram, 10);
+                    }
+                });
+            }
+            const totalGramElement = document.querySelector('#total_gram');
+            if (totalGramElement) {
+                totalGramElement.textContent = `合計: ${totalGram} g`;
+            }
+        }
+
+        // ページ読み込み時にセレクトボックスを初期化
+        window.addEventListener('DOMContentLoaded', updateSelectArea);
+
+        // セレクトボックスの変更イベントを処理する関数
+        function handleSelectChange() {
+            const kindSelects = document.querySelectorAll('select[data-kind]');
+            let totalGram = 0;
+            kindSelects.forEach(select => {
+                const selectedKind = select.value;
+                const gramSelect = document.querySelector(`#${selectedKind} .gram-select`);
+                if (gramSelect) {
+                    const selectedOption = select.querySelector(`option[value="${select.value}"]`);
+                    const selectedGram = selectedOption.value || 0;
+                    totalGram += parseInt(selectedGram, 10);
+                    gramSelect.textContent = `${selectedGram} g`;
+                }
+            });
+
+
+            const totalGramElement = document.querySelector('#total_gram');
+            if (totalGramElement) {
+                totalGramElement.textContent = `合計: ${totalGram} g`;
+            }
+        }
+
+        // ページ読み込み時にセレクトボックスを初期化
+        window.addEventListener('DOMContentLoaded', updateSelectArea);
+
+        // セレクトボックスの変更イベントを処理する関数
+        function handleSelectChange() {
+            const kindSelects = document.querySelectorAll('select[data-kind]');
+            let totalGram = 0;
+            kindSelects.forEach(select => {
+                const selectedKind = select.value;
+                const gramSelect = document.querySelector(`#${selectedKind} .gram-select`);
+                if (gramSelect) {
+                    const selectedOption = select.querySelector(`option[value="${select.value}"]`);
+                    const selectedGram = selectedOption.value || 0;
+                    totalGram += parseInt(selectedGram, 10);
+                    gramSelect.textContent = `${selectedGram} g`;
+                }
+            });
+            const totalGramElement = document.querySelector('#total_gram');
+            if (totalGramElement) {
+                totalGramElement.textContent = `合計: ${totalGram} g`;
+            }
+        }
+
+        // セレクトボックスの変更イベントを監視
+        const kindSelects = document.querySelectorAll('select[data-kind]');
+        kindSelects.forEach(select => {
+            select.addEventListener('change', handleSelectChange);
+        });
 
         // 登録ボタンを押したら発火
         $(document).on("click", "#registration_btn", function () {
@@ -196,7 +306,6 @@
             const gear_kind = $("#gear_kind").val();
             const gear_text = $("#text_area").val();
             const data = {
-
                 // カウンターで自動でIDを振る
                 id: ++count,
                 name: gear_name,
@@ -233,6 +342,8 @@
         });
 
         // 登録したものが右のサイドバーに表示される
+
+
         function sidebar() {
             // ローカルストレージから全データを取得
             const allData = JSON.parse(localStorage.getItem('gearData')) || {};
@@ -256,7 +367,6 @@
                     div.innerHTML = ""; // 既存の要素をクリア
                     dataList.forEach((data) => {
                         const name = data.name;
-                        console.log(name);
                         const gram = data.gram;
                         const str = `${name} ${gram}`;
 
@@ -276,31 +386,14 @@
             }
         }
 
-
-
-        // // 画像プレビューの表示
-        // function previewFile(input) {
-        //     const preview = document.querySelector('#preview');
-        //     const file = input.files[0];
-        //     const reader = new FileReader();
-
-        //     reader.onloadend = function () {
-        //         preview.src = reader.result;
-        //     }
-
-        //     if (file) {
-        //         reader.readAsDataURL(file);
-        //     } else {
-        //         preview.src = "";
-        //     }
-        // }
+        // 登録したものが右のサイドバーに表示される
+        sidebar();
 
         // 削除ボタンがクリックされた時の処理
         $(document).on("click", ".delete_btn", function () {
             const id = $(this).data("id");
             deleteData(id);
         });
-
 
         // データを削除する関数
         function deleteData(id) {
@@ -329,8 +422,9 @@
             // カウンターの値を更新
             count = savedData.length;
         }
-
     </script>
+
+
 
 </body>
 
