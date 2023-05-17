@@ -181,7 +181,9 @@
 
         // kindごとにセレクトボックスを更新する関数
         function updateSelectArea() {
-            const allData = JSON.parse(localStorage.getItem('gearData')) || {};
+            const data = localStorage.getItem('gearData');
+            const allData = data ? JSON.parse(data) : [];
+            // const allData = JSON.parse(localStorage.getItem('gearData')) || {};
 
             // kindごとにデータを分類するオブジェクトを作成
             const dataByKind = {};
@@ -247,24 +249,20 @@
             }
         }
 
-        // ページ読み込み時にセレクトボックスを初期化
-        window.addEventListener('DOMContentLoaded', updateSelectArea);
-
-        // セレクトボックスの変更イベントを処理する関数
+        // セレクトボックスの変更イベントを処理
         function handleSelectChange() {
             const kindSelects = document.querySelectorAll('select[data-kind]');
             let totalGram = 0;
             kindSelects.forEach(select => {
-                const selectedKind = select.value;
+                const selectedKind = select.dataset.kind;
                 const gramSelect = document.querySelector(`#${selectedKind} .gram-select`);
                 if (gramSelect) {
-                    const selectedOption = select.querySelector(`option[value="${select.value}"]`);
+                    const selectedOption = select.querySelector('option:checked');
                     const selectedGram = selectedOption.value || 0;
                     totalGram += parseInt(selectedGram, 10);
                     gramSelect.textContent = `${selectedGram} g`;
                 }
             });
-
 
             const totalGramElement = document.querySelector('#total_gram');
             if (totalGramElement) {
@@ -274,26 +272,6 @@
 
         // ページ読み込み時にセレクトボックスを初期化
         window.addEventListener('DOMContentLoaded', updateSelectArea);
-
-        // セレクトボックスの変更イベントを処理する関数
-        function handleSelectChange() {
-            const kindSelects = document.querySelectorAll('select[data-kind]');
-            let totalGram = 0;
-            kindSelects.forEach(select => {
-                const selectedKind = select.value;
-                const gramSelect = document.querySelector(`#${selectedKind} .gram-select`);
-                if (gramSelect) {
-                    const selectedOption = select.querySelector(`option[value="${select.value}"]`);
-                    const selectedGram = selectedOption.value || 0;
-                    totalGram += parseInt(selectedGram, 10);
-                    gramSelect.textContent = `${selectedGram} g`;
-                }
-            });
-            const totalGramElement = document.querySelector('#total_gram');
-            if (totalGramElement) {
-                totalGramElement.textContent = `合計: ${totalGram} g`;
-            }
-        }
 
         // セレクトボックスの変更イベントを監視
         const kindSelects = document.querySelectorAll('select[data-kind]');
