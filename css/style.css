@@ -1,6 +1,10 @@
 html {
 	font-size: 62.5%;
 	/* 16px × 62.5% = 10px*/
+    background: url(../img/background.webp);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
 }
 
 
@@ -9,19 +13,33 @@ body{
     padding:0;
     text-align:left;
     font-family: Roboto, "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "ヒラギノ角ゴ Pro W3", "メイリオ", sans-serif;
-	line-height: 1.75;
+	line-height: 1.6;
 	font-size: 1.6rem;
+    height: 100vh;
+   
 }
 
 header{
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    color: #fff;
+}
+
+h1{
+    font-size: 4.5rem;
+}
+
+header p{
+    font-size: 2.2rem;
+    margin: 10px 0 0 10px;
 }
 
 main{
     border-bottom:1px solid #ccc;
     position:relative;
+    height: 90%;
 }
 
 /* -------------------------------
@@ -30,15 +48,21 @@ main{
 
 .registration{
     display: flex;
+    height: 90vh;
+    
 }
 
 .registration_form{
-    width: 70%;
+    width: 33.3333%;
+    text-align: center;
+    background:rgba(255, 255, 255, 0.8);
+
 }
 
 .registration_list{
-    width: 30%;
-    margin: 0 0 0 30px;
+    width: 33.3333%;
+    text-align: center;
+    background:rgba(255, 255, 255, 0.8);
 }
 
 footer{
@@ -47,16 +71,21 @@ footer{
     text-align: center;
 }
 p{
-    font-size:200%;
     text-align: center;
-    border-bottom:1px solid #fff;
-    height:100px;
+
 }
+
+p span{
+    font-size: 1.2rem;
+    margin: 10px;
+}
+
 ul{
     padding: 0;
     /* border-top: 1px solid #000000; */
     table-layout: fixed;
     width:100%;
+    margin: 10px 0;
 }
 .li{
     text-align: center;
@@ -65,11 +94,14 @@ ul{
     background-color: #FFF;
     display:table-cell; 
     cursor: pointer;
+    font-size: 1.8rem;
+  
 }
+
 li:hover{
-    background: #0066CC;
-    color:#fff;
+    background: #cde6ff;
 }
+
 input,textarea{
     margin: 3%;
     width: 70%;
@@ -84,17 +116,17 @@ textarea{
     height: 10vh;
 }
 
+.gear_kind{
+    font-size: 1.6rem;
+    width: 70%;
+    padding: 9px;
+}
+
 div{
   height: auto;
-  overflow-y: scroll;
-  border: 1px solid #666;
   margin: 10px;
 }
 
-div p{
-  font-size: 1.8rem;
-  height: auto;
-}
 
 /* -------------------------------
 選択フォーム
@@ -103,19 +135,21 @@ div p{
 h2{
     text-align: center;
     font-size: 2.8rem;
+    padding: 10px 10px;
+    border-bottom: #5fd3d969 1px solid;
 }
 
 .selectarea{
-    display: flex;
-}
-
-.selectarea_left{
-  width: 70%;
+    width: 33.3333%;
+    text-align: center;
+    background:rgba(255, 255, 255, 0.8);
 
 }
 
+.selectarea select{
+    width: 30%;
+}
 
-.selectarea_right{
-  width: 30%;
-
+#gram-select_total{
+    font-size: 2.2rem;
 }

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MEMOアプリ作成</title>
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -14,23 +15,16 @@
 <body>
     <header>
         <h1>pack to go</h1>
+        <p>~ 軽いは正義 ~</p>
     </header>
     <main>
 
         <!-- 登録フォーム -->
         <section class="registration">
             <div class="registration_form">
+                <h2>form</h2>
                 <form action="">
-                    <!-- <div>
-                    <p>ギアの写真を選択</p>
-                    <input type="file" onchange="previewFile(this);">
-                    <p>
-                        Preview:<br>
-                        <img id="preview"
-                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                            style="max-width:200px;">
-                    </p>
-                </div> -->
+
                     <div>
                         <p>ギアの名称</p>
                         <input type="text" id="gear_name">
@@ -41,7 +35,7 @@
                     </div>
                     <div>
                         <p>ギアの種類</p>
-                        <select name="" id="gear_kind">
+                        <select name="" id="gear_kind" class="gear_kind">
                             <option value="head_gear">head gear</option>
                             <option value="base_layer">base layer</option>
                             <option value="middle_layer">middle layer</option>
@@ -68,7 +62,8 @@
 
 
             <div class="registration_list">
-                <ul>
+                <h2>gear list</h2>
+                <ul class="list_wrapper">
                     <li>head gear
                         <div id="head_gear">
                             <p></p>
@@ -99,19 +94,17 @@
                             <p></p>
                         </div>
                     </li>
-                    <li>bagpack
+                    <li>backpack
                         <div id="bagpack">
                             <p></p>
                         </div>
                     </li>
                 </ul>
             </div>
-        </section>
 
-        <h2>equipment</h2>
 
-        <section class="selectarea">
-            <div class="selectarea_left">
+            <div class="selectarea">
+                <h2>gear select</h2>
                 <div>
                     <p>head gear</p>
                     <select name="" id="gear_kind" data-kind="head_gear"></select>
@@ -152,7 +145,7 @@
 
                 </div>
                 <div>
-                    <p>bagpack</p>
+                    <p>backpack</p>
                     <select name="" id="gear_kind" data-kind="bagpack"></select>
                     <span class="gram-select" data-kind="bagpack"></span>
 
@@ -167,12 +160,12 @@
                 <div id="gram-select_total"></div>
             </div>
 
-
-
-
-
-
         </section>
+
+
+
+
+
     </main>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -185,43 +178,9 @@
         // オブジェクトのid用のカウンター
         let count = 0;
 
-        // 登録ボタンを押したら発火（必要）
-        $(document).on("click", "#registration_btn", function () {
-            const gear_name = $("#gear_name").val();
-            const gear_gram = $("#gram").val();
-            const gear_kind = $("#gear_kind").val();
-            const gear_text = $("#text_area").val();
-            const data = {
-                // カウンターで自動でIDを振る
-                id: ++count,
-                name: gear_name,
-                gram: gear_gram,
-                kind: gear_kind,
-                text: gear_text,
-            };
-            console.log(data);
-
-            // dataオブジェクトをjson形式に変換
-            const json = JSON.stringify(data);
-            console.log(json);
-
-            // ローカルストレージから保存済みのデータを取得
-            // gearDataというkeyがなければ空の配列を作成する
-            const savedData = JSON.parse(localStorage.getItem("gearData")) || [];
-
-            // 取得したデータに今回保存するデータを追加
-            savedData.push(data);
-
-            // ローカルストレージに保存する
-            localStorage.setItem("gearData", JSON.stringify(savedData));
-
-            sidebar();
-            updateSelectArea();
-            handleSelectChange();
-        });
 
         // クリアボタンを押したら入力エリアの内容を削除する
-        $(document).on("click", "#clear_btn", function () {
+        $("#clear_btn").on("click", function () {
             $("#gear_name").val("");
             $("#gram").val("");
             $("#gear_kind").val("");
@@ -229,8 +188,6 @@
         });
 
         // 登録したものが右のサイドバーに表示される
-
-
         function sidebar() {
             // ローカルストレージから全データを取得
             const allData = JSON.parse(localStorage.getItem('gearData'));
@@ -256,10 +213,14 @@
                         dataList.forEach((data) => {
                             const name = data.name;
                             const gram = data.gram;
-                            const str = `${name} ${gram}`;
-
+                            const text = data.text;
+                            // const str = `${name} ${gram}g ${text}`;
+                            const str = `${name} ${gram}g <br><span>${text}</span>`;
                             const p = document.createElement('p');
-                            p.textContent = str;
+                            p.innerHTML = str;
+
+                            // const p = document.createElement('p');
+                            // p.textContent = str;
 
                             const deleteBtn = document.createElement('button');
                             deleteBtn.textContent = '削除';
@@ -302,6 +263,8 @@
 
             // サイドバーを更新
             sidebar();
+            // kindごとにセレクトボックスを更新する関数
+            updateSelectArea();
 
             // 削除されたデータに対応する<p>要素を削除する
             const pElements = document.querySelectorAll(`.delete_btn[data-id="${id}"]`);
@@ -362,11 +325,12 @@
         function createSelectOptions(dataList) {
             let options = '';
             dataList.forEach(data => {
-                const option = `<option value="${data.gram}">${data.name} (${data.gram}g)</option>`;
+                const option = `<option value="${data.gram}">${data.name}</option>`;
                 options += option;
             });
             return options;
         }
+
 
         // gramセレクトボックスを更新する関数（必要）
         function updateGramSelect(dataList, gramSelect) {
@@ -417,6 +381,44 @@
 
         // 初期表示時に合計値を更新（必要）
         updateTotalGramSelect();
+
+
+
+        // 登録ボタンを押したら発火（必要）
+        // ※handleSelectChange();が反応しないので、最後に配置
+        $(document).on("click", "#registration_btn", function () {
+            const gear_name = $("#gear_name").val();
+            const gear_gram = $("#gram").val();
+            const gear_kind = $("#gear_kind").val();
+            const gear_text = $("#text_area").val();
+            const data = {
+                // カウンターで自動でIDを振る
+                id: ++count,
+                name: gear_name,
+                gram: gear_gram,
+                kind: gear_kind,
+                text: gear_text,
+            };
+            console.log(data);
+
+            // dataオブジェクトをjson形式に変換
+            const json = JSON.stringify(data);
+            console.log(json);
+
+            // ローカルストレージから保存済みのデータを取得
+            // gearDataというkeyがなければ空の配列を作成する
+            const savedData = JSON.parse(localStorage.getItem("gearData")) || [];
+
+            // 取得したデータに今回保存するデータを追加
+            savedData.push(data);
+
+            // ローカルストレージに保存する
+            localStorage.setItem("gearData", JSON.stringify(savedData));
+
+            sidebar();
+            updateSelectArea();
+            handleSelectChange();
+        });
 
 
 
