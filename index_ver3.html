@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MEMOアプリ作成</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <h1>pack to go</h1>
+    </header>
+
+    <main>
+        <!-- 登録フォーム -->
+        <section class="registration_form">
+
+            <form action="">
+                <div>
+                    <p>ギアの写真を選択</p>
+                    <input type="file" onchange="previewFile(this);">
+                    <p>
+                        Preview:<br>
+                        <img id="preview"
+                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                            style="max-width:200px;">
+                    </p>
+                </div>
+                <div>
+                    <p>ギアの名称</p>
+                    <input type="text" id="gear_name">
+                </div>
+                <div>
+                    <p>ギアの重さ</p>
+                    <input type="text" id="gram">
+                </div>
+                <div>
+                    <p>ギアの種類</p>
+                    <select name="" id="gear_kind">
+                        <option value="head gear">head gear</option>
+                        <option value="base layer">base layer</option>
+                        <option value="">middle layer</option>
+                        <option value="middle layer">outer</option>
+                        <option value="bottoms">bottoms</option>
+                        <option value="shoes">shoes</option>
+                        <option value="bagpack">bagpack</option>
+                        <option value="other">other</option>
+
+                    </select>
+                </div>
+                <div>
+                    <p>ギアの説明</p>
+                    <textarea id="text_area"></textarea>
+                </div>
+                <div>
+                    <input type="button" value="登録する" id="registration_btn">
+                    <input type="button" value="クリア" id="clear_btn">
+                </div>
+
+            </form>
+            <!-- <div>
+                <ul class=" registration_btn">
+                    <li id="save">Save</li>
+                    <li id="clear">Clear</li>
+
+                    </ul>
+                </div> -->
+        </section>
+
+        <!-- 登録されたデータのリスト -->
+        <section class="registration_list">
+            <div>
+                <ul>
+                    <li>head gear
+                        <div id="head_gear">
+                            <p></p>
+                        </div>
+                    </li>
+
+                    <li>base layer
+                        <div id="base_layer">
+                            <p></p>
+                        </div>
+                    </li>
+
+                    <li>middle layer
+
+                        <div id="middle_layer">
+                            <p></p>
+                        </div>
+                    </li>
+
+                    <li>outer
+                        <div id="outer">
+                            <p></p>
+                        </div>
+
+                    </li>
+
+                    <li>bottoms
+                        <div id="bottoms">
+                            <p></p>
+                        </div>
+
+                    </li>
+                    <li>shoes
+                        <div id="shoes">
+                            <p></p>
+                        </div>
+
+                    </li>
+                    <li>bagpack
+                        <div id="bagpack">
+                            <p></p>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+
+
+
+        </section>
+
+        <section>
+
+
+
+
+
+
+
+            
+        </section>
+
+
+
+
+
+
+    </main>
+
+    <footer>
+
+        <small>yamanekohike</small>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+
+        // オブジェクトのid用のカウンター
+        let count = 0;
+
+        // 登録ボタンを押したら発火
+        $("#registration_btn").on("click", function () {
+            const gear_name = $("#gear_name").val();
+            const gear_gram = $("#gram").val();
+            const gear_kind = $("#gear_kind").val();
+            const gear_text = $("#text_area").val();
+            const data = {
+                // カウンターで自動でIDを振る
+                id: ++count,
+                name: gear_name,
+                gram: gear_gram,
+                kind: gear_kind,
+                text: gear_text,
+            };
+            console.log(data);
+
+            // dataオブジェクトをjson形式に変換
+            const json = JSON.stringify(data);
+            console.log(json);
+
+            // ローカルストレージから保存済みのデータを取得
+            // gearDataというkeyがなければ空の配列を作成する
+            const savedData = JSON.parse(localStorage.getItem("gearData")) || [];
+
+            // 取得したデータに今回保存するデータを追加
+            savedData.push(data);
+
+            // ローカルストレージに保存する
+            localStorage.setItem("gearData", JSON.stringify(savedData));
+
+            sidebar();
+        });
+
+        // クリアボタンを押したら入力エリアの内容を削除する
+        $("#clear_btn").on("click", function () {
+            $("#gear_name").val("");
+            $("#gram").val("");
+            $("#gear_kind").val("");
+            $("#text_area").val("");
+        });
+
+        // 登録したものが右のサイドバーに表示される
+        function sidebar() {
+            // ローカルストレージから全データを取得
+            const allData = JSON.parse(localStorage.getItem('gearData')) || [];
+
+            // kindごとにデータを分類するオブジェクトを作成
+            const dataByKind = {};
+            allData.forEach((data) => {
+                const kind = data.kind;
+                // !は論理演算子の一つで、否定（not）を表す
+                // dataByKindオブジェクトがなければ、新しく作成する
+                if (!dataByKind.hasOwnProperty(kind)) {
+                    dataByKind[kind] = [];
+                }
+                dataByKind[kind].push(data);
+            });
+
+            // 分類したデータをリストに表示する
+            for (const kind in dataByKind) {
+                const dataList = dataByKind[kind];
+                const div = document.querySelector(`#${kind} p`);
+                if (div) {
+                    dataList.forEach((data) => {
+                        const name = data.name;
+                        console.log(name);
+                        const gram = data.gram;
+                        const str = `${name} ${gram}`;
+                        const p = document.createElement('p');
+                        p.textContent = str;
+                        div.appendChild(p);
+                    });
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+        // プレビュー表示
+        // $(document).ready(function () {
+        //     $('#fileInput').change(function () {
+        //         let file = this.files[0];
+        //         let reader = new FileReader();
+        //         reader.onload = function (e) {
+        //             $('#preview').attr('src', e.target.result);
+        //         }
+        //         reader.readAsDataURL(file);
+        //     });
+        // });
+
+
+
+
+    </script>
+
+</body>
+
+</html>
